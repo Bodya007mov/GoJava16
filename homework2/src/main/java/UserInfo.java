@@ -12,5 +12,23 @@ public class UserInfo {
         sc.nextLine();
         System.out.println("Введите хобби:");
         String hobby = sc.nextLine();
+
+        System.out.println("Введите " + '\u0022' + "табличный" + '\u0022' + " " + '\u0022' + "текстовый" + '\u0022' +
+                " или " + '\u0022' + "иной" + '\u0022' + " для соответствующего отображения информации:");
+        String displayOption = sc.nextLine();
+        if (displayOption.equals("табличный")) {
+            System.out.println("Имя:         " + name + "\n" +
+                    "Город:       " + city + "\n" +
+                    "Возраст:     " + age + "\n" +
+                    "Хобби:       " + hobby);
+        }
+        else if (displayOption.equals("текстовый")) {
+            System.out.println("Человек по имени " + name + " живет в городе " + city + ".\n" +
+                    "Этому человеку " + age + " лет и любит он заниматься " + hobby + ".");
+        }
+        else if (displayOption.equals("иной")) {
+            System.out.println(name + " - имя\n" + city + " - город\n" + age + " - возраст\n" + hobby + " - хобби");
+        }
+
     }
 }
