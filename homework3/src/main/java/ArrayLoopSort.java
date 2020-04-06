@@ -19,9 +19,37 @@ public class ArrayLoopSort {
             if (i > max) max = i;
             if (i == 5) count++;
         }
+        int countMin = arr.length;
+        int countMax = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int counter = 1;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    counter++;
+                }
+            }
+            if (countMax < counter) {
+                countMax = counter;
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            int counter = 1;
+            for (int j = 0; j < arr.length; j++) {
+                if (arr[i] == arr[j] && i!=j) {
+                    counter++;
+                }
+            }
+            if (countMin > counter) {
+                countMin = counter;
+            }
+        }
+
         System.out.println("Min element: " + min);
         System.out.println("Max element: " + max);
         System.out.println("Iterations of 5: " + count);
+
+        System.out.println("Max iterations: " + countMax);
+        System.out.println("Min iterations: " + countMin);
 
         boolean isSorted = false;
         int temp;
