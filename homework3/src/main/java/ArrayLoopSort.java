@@ -4,12 +4,12 @@ import java.util.Scanner;
 public class ArrayLoopSort {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter array size: ");
-        int arrSize = sc.nextInt();
-        int [] arr = new int[arrSize];
         System.out.print("Enter array elements: ");
+        String str = sc.nextLine();
+        String [] arrString = str.split(" ");
+        int [] arr = new int[arrString.length];
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(arrString[i]);
         }
         int min = arr[0];
         int max = arr[0];
