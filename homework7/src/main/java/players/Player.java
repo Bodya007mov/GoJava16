@@ -1,6 +1,6 @@
 package players;
 
-public class Player {
+public abstract class Player {
 
     private final double PRICE;
     private final String[] playlist = new String[] {"Default song"};
