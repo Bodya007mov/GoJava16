@@ -1,11 +1,16 @@
 package flowers;
 
-import java.util.Arrays;
-
 public class FlowerStore {
 
+    private int money;
+    private Flower[] bouquet;
+
+    public int getMoney() {
+        return money;
+    }
+
     public Flower[] sell(int roseNumber, int chamomileNumber, int tulipNumber) {
-        Flower[] bouquet = new Flower[roseNumber + chamomileNumber + tulipNumber];
+        bouquet = new Flower[roseNumber + chamomileNumber + tulipNumber];
         for (int i = 0; i < bouquet.length; i++) {
             if (i < roseNumber) {
                 bouquet[i] = new Rose();
@@ -17,11 +22,12 @@ public class FlowerStore {
                 bouquet[i + roseNumber + chamomileNumber] = new Tulip();
             }
         }
+        takeMoney();
         return bouquet;
     }
 
     public Flower[] sellSequence(int roseNumber, int chamomileNumber, int tulipNumber) {
-        Flower[] bouquet = new Flower[roseNumber + chamomileNumber + tulipNumber];
+        bouquet = new Flower[roseNumber + chamomileNumber + tulipNumber];
         int i = 0;
         while (i < bouquet.length) {
             if (roseNumber > 0) {
@@ -37,6 +43,13 @@ public class FlowerStore {
                 tulipNumber--;
             }
         }
+        takeMoney();
         return bouquet;
+    }
+
+    public void takeMoney() {
+        for (Flower flower : bouquet) {
+            this.money += flower.getPrice();
+        }
     }
 }
