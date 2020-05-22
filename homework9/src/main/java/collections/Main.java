@@ -1,34 +1,54 @@
 package collections;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
 
 public class Main {
 
     public static void main(String[] args) {
-        MyArrayList<String> list = new MyArrayList<>();
-        list.add("str1");
-        list.add("str2");
-        list.add("str3");
-        list.add("str4");
-        list.add("str5");
-        list.add("str6");
-        list.add("str7");
-        list.add("str8");
-        list.add("str9");
-        list.add("str10");
-        list.add("str11");
-        System.out.println(list.size());
-        System.out.println(list);
+//        MyArrayList<String> myArrayList = new MyArrayList<>();
+//        myArrayList.add("str1");
+//        myArrayList.add("str2");
+//        myArrayList.add("str3");
+//        myArrayList.add("str4");
+//        myArrayList.add("str5");
+//        myArrayList.add("str6");
+//        myArrayList.add("str7");
+//        myArrayList.add("str8");
+//        myArrayList.add("str9");
+//        myArrayList.add("str10");
+//        myArrayList.add("str11");
+//        System.out.println(myArrayList.size());
+//        System.out.println(myArrayList);
+//
+//        myArrayList.remove(5);
+//        System.out.println(myArrayList.size());
+//        System.out.println(myArrayList);
+//
+//        System.out.println(myArrayList.get(2));
+//
+//        myArrayList.clear();
+//        System.out.println(myArrayList.size());
+//        System.out.println(myArrayList);
 
-        list.remove(5);
-        System.out.println(list.size());
-        System.out.println(list);
+        MyLinkedList<String> myLinkedList = new MyLinkedList<>();
+        myLinkedList.add("str1");
+        myLinkedList.add("str2");
+        myLinkedList.add("str3");
+        myLinkedList.add("str4");
+        myLinkedList.add("str5");
+        System.out.println(myLinkedList.size());
+        System.out.println(myLinkedList);
 
-        System.out.println(list.get(2));
+        myLinkedList.remove(3);
+        System.out.println(myLinkedList.size());
+        System.out.println(myLinkedList);
 
-        list.clear();
-        System.out.println(list.size());
-        System.out.println(list);
+        System.out.println(myLinkedList.get(3));
+
+        myLinkedList.clear();
+        System.out.println(myLinkedList.size());
+        System.out.println(myLinkedList);
+
+
     }
 }
