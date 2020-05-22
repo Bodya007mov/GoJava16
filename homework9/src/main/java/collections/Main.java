@@ -47,22 +47,40 @@ public class Main {
 //        System.out.println(myLinkedList.size());
 //        System.out.println(myLinkedList);
 
-        MyQueue<String> myQueue = new MyQueue<>();
-        myQueue.add("str1");
-        myQueue.add("str2");
-        myQueue.add("str3");
-        myQueue.add("str4");
-        myQueue.add("str5");
-        System.out.println(myQueue.size());
-        System.out.println(myQueue);
+//        MyQueue<String> myQueue = new MyQueue<>();
+//        myQueue.add("str1");
+//        myQueue.add("str2");
+//        myQueue.add("str3");
+//        myQueue.add("str4");
+//        myQueue.add("str5");
+//        System.out.println(myQueue.size());
+//        System.out.println(myQueue);
+//
+//        System.out.println(myQueue.peek());
+//        System.out.println(myQueue);
+//
+//        System.out.println(myQueue.poll());
+//        System.out.println(myQueue);
+//        System.out.println(myQueue.poll());
+//        System.out.println(myQueue);
 
-        System.out.println(myQueue.peek());
-        System.out.println(myQueue);
+        MyStack<String> myStack = new MyStack<>();
+        myStack.add("str1");
+        myStack.add("str2");
+        myStack.add("str3");
+        myStack.add("str4");
+        myStack.add("str5");
+        System.out.println(myStack.size());
+        System.out.println(myStack);
 
-        System.out.println(myQueue.poll());
-        System.out.println(myQueue);
-        System.out.println(myQueue.poll());
-        System.out.println(myQueue);
+        System.out.println(myStack.peek());
+        System.out.println(myStack);
+
+
+        System.out.println(myStack.pop());
+        System.out.println(myStack);
+        System.out.println(myStack.pop());
+        System.out.println(myStack);
 
     }
 }
