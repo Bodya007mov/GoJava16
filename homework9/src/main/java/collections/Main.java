@@ -64,23 +64,39 @@ public class Main {
 //        System.out.println(myQueue.poll());
 //        System.out.println(myQueue);
 
-        MyStack<String> myStack = new MyStack<>();
-        myStack.add("str1");
-        myStack.add("str2");
-        myStack.add("str3");
-        myStack.add("str4");
-        myStack.add("str5");
-        System.out.println(myStack.size());
-        System.out.println(myStack);
+//        MyStack<String> myStack = new MyStack<>();
+//        myStack.add("str1");
+//        myStack.add("str2");
+//        myStack.add("str3");
+//        myStack.add("str4");
+//        myStack.add("str5");
+//        System.out.println(myStack.size());
+//        System.out.println(myStack);
+//
+//        System.out.println(myStack.peek());
+//        System.out.println(myStack);
+//
+//
+//        System.out.println(myStack.pop());
+//        System.out.println(myStack);
+//        System.out.println(myStack.pop());
+//        System.out.println(myStack);
 
-        System.out.println(myStack.peek());
-        System.out.println(myStack);
+        MyHashMap<Integer, String> hashMap = new MyHashMap<>();
+        for (int i = 0; i < 10; i++) {
+            hashMap.put(i, "str" + i);
+        }
+        hashMap.print();
+        System.out.println("size: " + hashMap.size());
 
+        hashMap.remove(2);
+        hashMap.print();
+        System.out.println("size: " + hashMap.size());
 
-        System.out.println(myStack.pop());
-        System.out.println(myStack);
-        System.out.println(myStack.pop());
-        System.out.println(myStack);
+        System.out.println(hashMap.get(5));
 
+        hashMap.clear();
+        hashMap.print();
+        System.out.println("size: " + hashMap.size());
     }
 }
