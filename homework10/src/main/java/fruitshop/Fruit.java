@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Fruit {
     private FruitType type;
-    private int shelfLife;
+    private long shelfLife;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private Date date;
     private int price;
@@ -15,7 +15,7 @@ public class Fruit {
         return type;
     }
 
-    public int getShelfLife() {
+    public long getShelfLife() {
         return shelfLife;
     }
 
