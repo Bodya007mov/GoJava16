@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Устройство Java",
+    "callbackData": "Устройство Java"
+  },
+  {
+    "id": 2,
+    "name": "Примитивы",
+    "callbackData": "Примитивы"
+  },
+  {
+    "id": 3,
+    "name": "ООП",
+    "callbackData": "ООП"
+  },
+  {
+    "id": 4,
+    "name": "Классы и методы",
+    "callbackData": "Классы и методы"
+  },
+  {
+    "id": 5,
+    "name": "Коллекции",
+    "callbackData": "Коллекции"
+  },
+  {
+    "id": 6,
+    "name": "Многопоточность",
+    "callbackData": "Многопоточность"
+  },
+  {
+    "id": 7,
+    "name": "Рандом",
+    "callbackData": "Рандом"
+  },
+  {
+    "id": 8,
+    "name": "ТОП Любимых",
+    "callbackData": "ТОП Любимых"
+  },
+  {
+    "id": 9,
+    "name": "ТОП Сложных",
+    "callbackData": "ТОП Сложных"
+  },
+  {
+    "id": 10,
+    "name": "Назад",
+    "callbackData": "Назад"
+  },
+  {
+    "id": 11,
+    "name": "STOP",
+    "callbackData": "STOP"
+  }
+]

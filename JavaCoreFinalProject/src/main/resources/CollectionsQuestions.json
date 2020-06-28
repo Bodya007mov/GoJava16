@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Какая связь между equals и hashCode?",
+    "callbackData": "Какая связь между equals и hashCode?"
+  },
+  {
+    "id": 2,
+    "name": "Чем отличается ArrayList от LinkedList?",
+    "callbackData": "Чем отличается ArrayList от LinkedList?"
+  }
+]

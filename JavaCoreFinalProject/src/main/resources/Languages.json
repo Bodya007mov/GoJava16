@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Java",
+    "callbackData": "Java"
+  },
+  {
+    "id": 2,
+    "name": "HTML+CSS",
+    "callbackData": "HTML+CSS"
+  },
+  {
+    "id": 3,
+    "name": "ReactJS",
+    "callbackData": "ReactJS"
+  },
+  {
+    "id": 4,
+    "name": "NodeJS",
+    "callbackData": "NodeJS"
+  },
+  {
+    "id": 5,
+    "name": "Python",
+    "callbackData": "Python"
+  },
+  {
+    "id": 6,
+    "name": "STOP",
+    "callbackData": "STOP"
+  }
+]
