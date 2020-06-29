@@ -1,36 +1,25 @@
 [
   {
-    "id": 1,
     "name":"❤",
     "callbackData":"❤"
   },
   {
-    "id": 2,
     "name":"\uD83D\uDCAA",
     "callbackData":"\uD83D\uDCAA"
   },
   {
-    "id": 3,
     "name": "Ответ",
     "callbackData": "Ответ"
   },
   {
-    "id": 4,
     "name": "Далее",
     "callbackData": "Далее"
   },
   {
-    "id": 5,
     "name": "Назад",
     "callbackData": "Назад"
   },
   {
-    "id": 6,
-    "name": "STOP",
-    "callbackData": "STOP"
-  },
-  {
-    "id": 7,
     "name": "?",
     "callbackData": "?"
   }

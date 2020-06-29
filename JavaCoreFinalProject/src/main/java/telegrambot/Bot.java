@@ -3,6 +3,7 @@ package telegrambot;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.SneakyThrows;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
@@ -11,7 +12,6 @@ import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboar
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
-import org.telegram.telegrambots.generics.BotSession;
 import telegrambot.domain.Menu;
 
 import java.io.File;
@@ -23,99 +23,19 @@ import static telegrambot.util.Constants.*;
 
 public class Bot extends TelegramLongPollingBot {
 
-    public static BotSession botSession;
-    List<Menu> languagesButtonsList, topicButtonsList, otherLanguagesButtonsList, questionButtonsList, structureQuestionsList,
-            primitivesQuestionsList, OOPQuestionsList, classesAndMethodsQuestionsList, collectionsQuestionsList, multiThreadingQuestionsList;
-    private int questionCounter;
-
-    public Bot() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            this.languagesButtonsList = objectMapper.readValue(new File(LANGUAGES_PATH), new TypeReference<List<Menu>>(){});
-            this.topicButtonsList = objectMapper.readValue(new File(TOPIC_PATH), new TypeReference<List<Menu>>(){});
-            this.otherLanguagesButtonsList = objectMapper.readValue(new File(OTHER_LANGUAGES_PATH), new TypeReference<List<Menu>>(){});
-            this.questionButtonsList = objectMapper.readValue(new File(QUESTION_BUTTONS_PATH), new TypeReference<List<Menu>>(){});
-            this.structureQuestionsList = objectMapper.readValue(new File(STRUCTURE_QUESTIONS_PATH), new TypeReference<List<Menu>>(){});
-            this.primitivesQuestionsList = objectMapper.readValue(new File(PRIMITIVES_QUESTIONS_PATH), new TypeReference<List<Menu>>(){});
-            this.OOPQuestionsList = objectMapper.readValue(new File(OOP_QUESTIONS_PATH), new TypeReference<List<Menu>>(){});
-            this.classesAndMethodsQuestionsList = objectMapper.readValue(new File(CLASSES_AND_METHODS_QUESTIONS_PATH), new TypeReference<List<Menu>>(){});
-            this.collectionsQuestionsList = objectMapper.readValue(new File(COLLECTIONS_QUESTIONS_PATH), new TypeReference<List<Menu>>(){});
-            this.multiThreadingQuestionsList = objectMapper.readValue(new File(MULTITHREADING_QUESTIONS_PATH), new TypeReference<List<Menu>>(){});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    @SneakyThrows
     public void onUpdateReceived(Update update) {
         if(update.hasMessage()) {
             if(update.getMessage().getText().equals("/start")) {
-                sendMessage(languagesButtonsList, CHOOSE_LANGUAGE, update.getMessage().getChatId());
+                sendMessage(LANGUAGES_PATH, CHOOSE_LANGUAGE, update.getMessage().getChatId());
             }
-        } else if(update.hasCallbackQuery()) {
-            switch (update.getCallbackQuery().getData()) {
-                case "Java":
-                    sendMessage(topicButtonsList, CHOOSE_TOPIC, update.getCallbackQuery().getMessage().getChatId());
-                    System.out.println(update.getCallbackQuery().getId());
-                    break;
-                case "STOP":
-                    /*
-                    botSession.stop();
-                    botSession.start();
-                    */
-
-                    /*
-                    botSession.stop();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    botSession.start();
-                    */
-                    botSession.stop();
-                    System.out.println(botSession.isRunning());
-                    for (int i = 0; i < 10000; i++) {
-                        i = i + 1;
-                        i = i - 1;
-                    }
-                    botSession.start();
-                    System.out.println(botSession.isRunning());
-                    break;
-                case "HTML+CSS":
-                case "ReactJS":
-                case "NodeJS":
-                case "Python":
-                    sendMessage(otherLanguagesButtonsList, CHOOSE_ACTION, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-                case "Устройство Java":
-                    sendQuestion(questionButtonsList, structureQuestionsList, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-                case "Примитивы":
-                    sendQuestion(questionButtonsList, primitivesQuestionsList, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-                case "ООП":
-                    sendQuestion(questionButtonsList, OOPQuestionsList, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-                case "Классы и методы":
-                    sendQuestion(questionButtonsList, classesAndMethodsQuestionsList, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-                case "Коллекции":
-                    sendQuestion(questionButtonsList, collectionsQuestionsList, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-                case "Многопоточность":
-                    sendQuestion(questionButtonsList, multiThreadingQuestionsList, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-                case "?":
-                    sendMessage(questionButtonsList, QUESTION_MARK_ANSWER, update.getCallbackQuery().getMessage().getChatId());
-                    break;
-            }
-            if((update.getCallbackQuery().getMessage().getText().equals(CHOOSE_TOPIC) || update.getCallbackQuery().getMessage().getText().equals(CHOOSE_ACTION))
-                    && update.getCallbackQuery().getData().equals("Назад")) {
-                sendMessage(languagesButtonsList, CHOOSE_LANGUAGE, update.getCallbackQuery().getMessage().getChatId());
-            } else if (update.getCallbackQuery().getData().equals("Назад")) {
-                sendMessage(topicButtonsList, CHOOSE_TOPIC, update.getCallbackQuery().getMessage().getChatId());
-            } else if(update.getCallbackQuery().getMessage().getText().equals(structureQuestionsList.get(questionCounter).getName()) && update.getCallbackQuery().getData().equals(questionButtonsList.get(4).getCallbackData())) {
-                sendMessage(topicButtonsList, CHOOSE_TOPIC, update.getCallbackQuery().getMessage().getChatId());
+        }
+        else if(update.hasCallbackQuery()) {
+            String[] str = update.getCallbackQuery().getData().split("-");
+            if(str[0].equals("language")) {
+                getTopicsForLanguage(str[1], update.getCallbackQuery().getMessage().getChatId());
+            } else if(str[0].equals("topic")) {
+                getQuestionsForTopic(str[1], str[2], update.getCallbackQuery().getMessage().getChatId());
             }
         }
     }
@@ -131,29 +51,15 @@ public class Bot extends TelegramLongPollingBot {
     public void connect() {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
         try {
-            botSession = telegramBotsApi.registerBot(this);
+            telegramBotsApi.registerBot(this);
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }
     }
 
-    private void sendMessage(List<Menu> buttons, String text, Long chatId) {
-        try {
-            execute(new SendMessage().setChatId(chatId).setText(text).setReplyMarkup(initializeKeyboard(buttons)));
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendQuestion(List<Menu> buttons, List<Menu> text, Long chatId) {
-        try {
-            execute(new SendMessage().setChatId(chatId).setText(text.get(questionCounter).getName()).setReplyMarkup(initializeKeyboard(buttons)));
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private InlineKeyboardMarkup initializeKeyboard(List<Menu> buttons) {
+    private void sendMessage(String path, String text, Long chatId) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Menu> buttons = objectMapper.readValue(new File(path), new TypeReference<List<Menu>>() {});
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         buttons.forEach(element -> {
@@ -162,6 +68,23 @@ public class Bot extends TelegramLongPollingBot {
             rowList.add(row);
         });
         inlineKeyboardMarkup.setKeyboard(rowList);
-        return inlineKeyboardMarkup;
+        try {
+            execute(new SendMessage().setChatId(chatId).setText(text).setReplyMarkup(inlineKeyboardMarkup));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getTopicsForLanguage(String language, Long chatId) throws IOException {
+        String path = String.format("src/main/resources/%s-topics.json", language);
+        sendMessage(path, CHOOSE_TOPIC, chatId);
+    }
+
+    private void getQuestionsForTopic(String language, String topic, Long chatId) throws IOException {
+        String buttonsPath = String.format("src/main/resources/%s-topics-questions.json", language);
+        String questionsPath = String.format("src/main/resources/%s-%s-questions.json", language, topic);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Menu> questions = objectMapper.readValue(new File(questionsPath), new TypeReference<List<Menu>>() {});
+        sendMessage(buttonsPath, questions.get(0).getName(), chatId);
     }
 }

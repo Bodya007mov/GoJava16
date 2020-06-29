@@ -1,11 +1,9 @@
 [
   {
-    "id": 1,
     "name": "question1",
     "callbackData": "question1"
   },
   {
-    "id": 2,
     "name": "question2",
     "callbackData": "question2"
   }

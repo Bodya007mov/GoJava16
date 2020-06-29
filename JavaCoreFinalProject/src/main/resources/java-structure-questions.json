@@ -1,11 +1,9 @@
 [
   {
-    "id": 1,
     "name": "Какая разница между JDK, JVM, JRE?",
     "callbackData": "Какая разница между JDK, JVM, JRE?"
   },
   {
-    "id": 2,
     "name": "Что такое Heap и Stack память в Java?",
     "callbackData": "Что такое Heap и Stack память в Java?"
   }
