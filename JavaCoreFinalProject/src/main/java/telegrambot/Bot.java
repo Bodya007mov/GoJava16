@@ -32,10 +32,16 @@ public class Bot extends TelegramLongPollingBot {
         }
         else if(update.hasCallbackQuery()) {
             String[] str = update.getCallbackQuery().getData().split("-");
-            if(str[0].equals("language")) {
-                getTopicsForLanguage(str[1], update.getCallbackQuery().getMessage().getChatId());
-            } else if(str[0].equals("topic")) {
-                getQuestionsForTopic(str[1], str[2], update.getCallbackQuery().getMessage().getChatId());
+            switch (str[0]) {
+                case "language":
+                    getTopicsForLanguage(str[1], update.getCallbackQuery().getMessage().getChatId());
+                    break;
+                case "topic":
+                    getQuestionsForTopic(str[1], str[2], update.getCallbackQuery().getMessage().getChatId());
+                    break;
+                case "question":
+                    getMessage(str[1], str[2], str[3], str[4], update.getCallbackQuery().getMessage().getChatId());
+                    break;
             }
         }
     }
@@ -75,16 +81,79 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
+    private void sendMessage(String buttonsPath, String questionsPath, int id, Long chatId) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Menu> buttons = objectMapper.readValue(new File(buttonsPath), new TypeReference<List<Menu>>() {});
+        List<Menu> questions = objectMapper.readValue(new File(questionsPath), new TypeReference<List<Menu>>() {});
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
+        buttons.forEach(element -> {
+            List<InlineKeyboardButton> row = new ArrayList<>();
+            row.add(new InlineKeyboardButton().setText(element.getName()).setCallbackData(questions.get(id - 1).getCallbackData() + element.getCallbackData()));
+            rowList.add(row);
+        });
+        inlineKeyboardMarkup.setKeyboard(rowList);
+        questions.forEach(element -> {
+            if(element.getId() == id) {
+                try {
+                    execute(new SendMessage().setChatId(chatId).setText(element.getName()).setReplyMarkup(inlineKeyboardMarkup));
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void getTopicsForLanguage(String language, Long chatId) throws IOException {
         String path = String.format("src/main/resources/%s-topics.json", language);
         sendMessage(path, CHOOSE_TOPIC, chatId);
     }
 
     private void getQuestionsForTopic(String language, String topic, Long chatId) throws IOException {
-        String buttonsPath = String.format("src/main/resources/%s-topics-questions.json", language);
-        String questionsPath = String.format("src/main/resources/%s-%s-questions.json", language, topic);
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Menu> questions = objectMapper.readValue(new File(questionsPath), new TypeReference<List<Menu>>() {});
-        sendMessage(buttonsPath, questions.get(0).getName(), chatId);
+        switch (topic) {
+            case "random":
+                //
+                break;
+            case "favorite":
+                //
+                break;
+            case "difficult":
+                //
+                break;
+            case "back":
+                sendMessage(LANGUAGES_PATH, CHOOSE_LANGUAGE, chatId);
+                break;
+            default:
+                String buttonsPath = String.format("src/main/resources/%s-question-buttons.json", language);
+                String questionsPath = String.format("src/main/resources/%s-%s-questions.json", language, topic);
+                sendMessage(buttonsPath, questionsPath, 1, chatId);
+                break;
+        }
+    }
+
+    private void getMessage(String language, String topic, String messageId, String button, Long chatId) throws IOException {
+        int id = Integer.parseInt(messageId);
+        switch (button) {
+            case "heart":
+                //
+                break;
+            case "muscle":
+                //
+                break;
+            case "answer":
+                String buttonsPath = String.format("src/main/resources/%s-question-buttons.json", language);
+                String answerPath = String.format("src/main/resources/%s-%s-answers.json", language, topic);
+                sendMessage(buttonsPath, answerPath, id, chatId);
+                break;
+            case "next":
+                //
+                break;
+            case "back":
+                sendMessage(TOPIC_PATH, CHOOSE_TOPIC, chatId);
+                break;
+            case "questionmark":
+                //
+                break;
+        }
     }
 }

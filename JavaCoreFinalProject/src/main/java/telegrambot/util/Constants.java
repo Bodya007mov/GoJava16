@@ -11,15 +11,13 @@ public class Constants {
 
 
     public static final String LANGUAGES_PATH = "src/main/resources/Languages.json";
-
-
     public static final String TOPIC_PATH = "src/main/resources/java-topics.json";
 
 
 
 
     public static final String OTHER_LANGUAGES_PATH = "src/main/resources/IfOtherLanguagesChosen.json";
-    public static final String QUESTION_BUTTONS_PATH = "src/main/resources/java-topics-questions.json";
+    public static final String QUESTION_BUTTONS_PATH = "src/main/resources/java-question-buttons.json";
     public static final String STRUCTURE_QUESTIONS_PATH = "src/main/resources/java-structure-questions.json";
     public static final String PRIMITIVES_QUESTIONS_PATH = "src/main/resources/java-primitives-questions.json";
     public static final String OOP_QUESTIONS_PATH = "src/main/resources/java-oop-questions.json";

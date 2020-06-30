@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "name": "Что такое ООП?",
+    "name": "oop-answer-1",
     "callbackData": "question-java-oop-1"
   },
   {
     "id": 2,
-    "name": "Что такое объект?",
+    "name": "oop-answer-2",
     "callbackData": "question-java-oop-2"
   }
 ]

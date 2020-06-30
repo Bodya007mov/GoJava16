@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "name": "multithreading-question-1",
+    "name": "multithreading-answer-1",
     "callbackData": "question-java-multithreading-1"
   },
   {
     "id": 2,
-    "name": "multithreading-question-2",
+    "name": "multithreading-answer-2",
     "callbackData": "question-java-multithreading-2"
   }
 ]

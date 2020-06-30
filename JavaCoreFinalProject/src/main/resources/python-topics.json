@@ -1,6 +1,7 @@
 [
   {
+    "id": 1,
     "name": "Назад",
-    "callbackData": "Назад"
+    "callbackData": "topic-python-back"
   }
 ]

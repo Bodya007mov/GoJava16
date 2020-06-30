@@ -1,42 +1,52 @@
 [
   {
+    "id": 1,
     "name": "Устройство Java",
     "callbackData": "topic-java-structure"
   },
   {
+    "id": 2,
     "name": "Примитивы",
     "callbackData": "topic-java-primitives"
   },
   {
+    "id": 3,
     "name": "ООП",
     "callbackData": "topic-java-oop"
   },
   {
+    "id": 4,
     "name": "Классы и методы",
     "callbackData": "topic-java-classes"
   },
   {
+    "id": 5,
     "name": "Коллекции",
     "callbackData": "topic-java-collections"
   },
   {
+    "id": 6,
     "name": "Многопоточность",
     "callbackData": "topic-java-multithreading"
   },
   {
+    "id": 7,
     "name": "Рандом",
-    "callbackData": "random"
+    "callbackData": "topic-java-random"
   },
   {
+    "id": 8,
     "name": "ТОП Любимых",
-    "callbackData": "ТОП Любимых"
+    "callbackData": "topic-java-favorite"
   },
   {
+    "id": 9,
     "name": "ТОП Сложных",
-    "callbackData": "ТОП Сложных"
+    "callbackData": "topic-java-difficult"
   },
   {
+    "id": 10,
     "name": "Назад",
-    "callbackData": "Назад"
+    "callbackData": "topic-java-back"
   }
 ]

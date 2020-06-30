@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "classes-answer-1",
+    "callbackData": "question-java-classes-1"
+  },
+  {
+    "id": 2,
+    "name": "classes-answer-2",
+    "callbackData": "question-java-classes-2"
+  }
+]

@@ -1,10 +1,12 @@
 [
   {
+    "id": 1,
     "name": "Какие есть модификаторы доступа в Java?",
-    "callbackData": "Какие есть модификаторы доступа в Java?"
+    "callbackData": "question-java-classes-1"
   },
   {
+    "id": 2,
     "name": "Что такое package level access?",
-    "callbackData": "Что такое package level access?"
+    "callbackData": "question-java-classes-2"
   }
 ]

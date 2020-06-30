@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "primitives-answer-1",
+    "callbackData": "question-java-primitives-1"
+  },
+  {
+    "id": 2,
+    "name": "primitives-answer-2",
+    "callbackData": "question-java-primitives-2"
+  }
+]

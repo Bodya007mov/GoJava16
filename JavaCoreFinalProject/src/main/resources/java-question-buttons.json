@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name":"❤",
+    "callbackData":"-heart"
+  },
+  {
+    "id": 2,
+    "name":"\uD83D\uDCAA",
+    "callbackData":"-muscle"
+  },
+  {
+    "id": 3,
+    "name": "Ответ",
+    "callbackData": "-answer"
+  },
+  {
+    "id": 4,
+    "name": "Далее",
+    "callbackData": "-next"
+  },
+  {
+    "id": 5,
+    "name": "Назад",
+    "callbackData": "-back"
+  },
+  {
+    "id": 6,
+    "name": "?",
+    "callbackData": "-questionmark"
+  }
+]
