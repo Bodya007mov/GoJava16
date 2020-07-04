@@ -47,6 +47,6 @@
   {
     "id": 10,
     "name": "Назад",
-    "callbackData": "topic-java-back"
+    "callbackData": "back-languages"
   }
 ]

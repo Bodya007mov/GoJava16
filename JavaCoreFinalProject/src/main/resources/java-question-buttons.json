@@ -22,7 +22,7 @@
   {
     "id": 5,
     "name": "Назад",
-    "callbackData": "-back"
+    "callbackData": "-back-topics"
   },
   {
     "id": 6,

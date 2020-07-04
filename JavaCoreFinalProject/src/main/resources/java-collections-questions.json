@@ -1,12 +1,14 @@
 [
   {
     "id": 1,
-    "name": "Какая связь между equals и hashCode?",
+    "question": "Какая связь между equals и hashCode?",
+    "answer": "collections-answer-1",
     "callbackData": "question-java-collections-1"
   },
   {
     "id": 2,
-    "name": "Чем отличается ArrayList от LinkedList?",
+    "question": "Чем отличается ArrayList от LinkedList?",
+    "answer": "collections-answer-2",
     "callbackData": "question-java-collections-2"
   }
 ]

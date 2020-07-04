@@ -6,12 +6,12 @@ public class Constants {
     public static final String BOT_TOKEN = "1136048423:AAEE9KZyjScSpj8Mj8C0NSbgUfGSDH7PrXQ";
     public static final String CHOOSE_LANGUAGE = "Выбери раздел для просмотра:";
     public static final String CHOOSE_TOPIC = "Выбери тему для просмотра:";
-    public static final String CHOOSE_ACTION = "Выбери действие:";
 
 
 
     public static final String LANGUAGES_PATH = "src/main/resources/Languages.json";
-    public static final String TOPIC_PATH = "src/main/resources/java-topics.json";
+    public static final String TOPIC_PATH = "src/main/resources/%s-topics.json";
+
 
 
 
