@@ -11,18 +11,19 @@ public class Constants {
 
     public static final String LANGUAGES_PATH = "src/main/resources/Languages.json";
     public static final String TOPIC_PATH = "src/main/resources/%s-topics.json";
+    public static final String QUESTION_BUTTONS_PATH = "src/main/resources/%s-question-buttons.json";
+    public static final String QUESTIONS_PATH = "src/main/resources/%s-%s-questions.json";
 
 
 
 
-
-    public static final String OTHER_LANGUAGES_PATH = "src/main/resources/IfOtherLanguagesChosen.json";
-    public static final String QUESTION_BUTTONS_PATH = "src/main/resources/java-question-buttons.json";
-    public static final String STRUCTURE_QUESTIONS_PATH = "src/main/resources/java-structure-questions.json";
-    public static final String PRIMITIVES_QUESTIONS_PATH = "src/main/resources/java-primitives-questions.json";
-    public static final String OOP_QUESTIONS_PATH = "src/main/resources/java-oop-questions.json";
-    public static final String CLASSES_AND_METHODS_QUESTIONS_PATH = "src/main/resources/java-classes-questions.json";
-    public static final String COLLECTIONS_QUESTIONS_PATH = "src/main/resources/java-collections-questions.json";
-    public static final String MULTITHREADING_QUESTIONS_PATH = "src/main/resources/java-multithreading-questions.json";
-    public static final String QUESTION_MARK_ANSWER = "❤ - понравился вопрос\n\uD83D\uDCAA - вопрос показался сложным\n\"Ответ\" - чтобы увидеть ответ на вопрос";
+//    public static final String OTHER_LANGUAGES_PATH = "src/main/resources/IfOtherLanguagesChosen.json";
+//    public static final String QUESTION_BUTTONS_PATH = "src/main/resources/java-question-buttons.json";
+//    public static final String STRUCTURE_QUESTIONS_PATH = "src/main/resources/java-structure-questions.json";
+//    public static final String PRIMITIVES_QUESTIONS_PATH = "src/main/resources/java-primitives-questions.json";
+//    public static final String OOP_QUESTIONS_PATH = "src/main/resources/java-oop-questions.json";
+//    public static final String CLASSES_AND_METHODS_QUESTIONS_PATH = "src/main/resources/java-classes-questions.json";
+//    public static final String COLLECTIONS_QUESTIONS_PATH = "src/main/resources/java-collections-questions.json";
+//    public static final String MULTITHREADING_QUESTIONS_PATH = "src/main/resources/java-multithreading-questions.json";
+//    public static final String QUESTION_MARK_ANSWER = "❤ - понравился вопрос\n\uD83D\uDCAA - вопрос показался сложным\n\"Ответ\" - чтобы увидеть ответ на вопрос";
 }

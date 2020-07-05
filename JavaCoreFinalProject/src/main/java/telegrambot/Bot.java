@@ -137,8 +137,8 @@ public class Bot extends TelegramLongPollingBot {
                 //
                 break;
             default:
-                String buttonsPath = String.format("src/main/resources/%s-question-buttons.json", language);
-                String questionsPath = String.format("src/main/resources/%s-%s-questions.json", language, topic);
+                String buttonsPath = String.format(QUESTION_BUTTONS_PATH, language);
+                String questionsPath = String.format(QUESTIONS_PATH, language, topic);
                 getButtons(buttonsPath, questionsPath, 1,true, chatId);
                 break;
         }
@@ -147,7 +147,7 @@ public class Bot extends TelegramLongPollingBot {
 
     private void getQuestions(String language, String topic, String messageId, String button, Long chatId) throws IOException {
         int id = Integer.parseInt(messageId);
-        String buttonsPath = String.format("src/main/resources/%s-question-buttons.json", language);
+        String buttonsPath = String.format(QUESTION_BUTTONS_PATH, language);
         switch (button) {
             case "heart":
                 //
@@ -156,12 +156,12 @@ public class Bot extends TelegramLongPollingBot {
                 //
                 break;
             case "answer":
-                String answerPath = String.format("src/main/resources/%s-%s-questions.json", language, topic);
+                String answerPath = String.format(QUESTIONS_PATH, language, topic);
                 getButtons(buttonsPath, answerPath, id, false, chatId);
                 log.info("Got answer #{} for {} topic of {} language", id, topic, language);
                 break;
             case "next":
-                String questionsPath = String.format("src/main/resources/%s-%s-questions.json", language, topic);
+                String questionsPath = String.format(QUESTIONS_PATH, language, topic);
                 getButtons(buttonsPath, questionsPath, id + 1, true, chatId);
                 log.info("Got question #{} for {} topic of {} language", id, topic, language);
                 break;
