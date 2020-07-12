@@ -1,12 +1,16 @@
 [
   {
     "id": 1,
+    "heart":0,
+    "muscle":0,
     "question": "Что такое приведение типов? Какие виды приведения есть в Java?",
     "answer": "primitives-answer-1",
     "callbackData": "question-java-primitives-1"
   },
   {
     "id": 2,
+    "heart":0,
+    "muscle":0,
     "question": "Какие примитивные типы есть в Java?",
     "answer": "primitives-answer-2",
     "callbackData": "question-java-primitives-2"

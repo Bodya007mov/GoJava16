@@ -1,12 +1,16 @@
 [
   {
     "id": 1,
+    "heart":0,
+    "muscle":0,
     "question": "Какие есть модификаторы доступа в Java?",
     "answer": "classes-answer-1",
     "callbackData": "question-java-classes-1"
   },
   {
     "id": 2,
+    "heart":0,
+    "muscle":0,
     "question": "Что такое package level access?",
     "answer": "classes-answer-2",
     "callbackData": "question-java-classes-2"

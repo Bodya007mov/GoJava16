@@ -27,6 +27,7 @@ import static telegrambot.util.Constants.*;
 @Slf4j
 public class Bot extends TelegramLongPollingBot {
 
+    private final List<Question> randomQuestions = new ArrayList<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @SneakyThrows
@@ -85,6 +86,44 @@ public class Bot extends TelegramLongPollingBot {
 
     private void getButtons(String path, String text, Long chatId) throws IOException {
         List<Menu> buttons = objectMapper.readValue(new File(path), new TypeReference<List<Menu>>() {});
+        InlineKeyboardMarkup inlineKeyboardMarkup = createKeyboard(buttons);
+        sendMessage(text, inlineKeyboardMarkup, chatId);
+    }
+
+    private void getButtonsAndQuestion(String buttonsPath, List<Question> questions, int id, Long chatId) throws IOException {
+        List<Menu> buttons = objectMapper.readValue(new File(buttonsPath), new TypeReference<List<Menu>>() {});
+        if(id > questions.size()) {
+            return;
+        }
+        Question target = getTargetQuestion(questions, id);
+        buttons.forEach(button -> button.setCallbackData(target.getCallbackData() + button.getCallbackData()));
+        InlineKeyboardMarkup inlineKeyboardMarkup = createKeyboard(buttons);
+        sendMessage(target.getQuestion(), inlineKeyboardMarkup, chatId);
+    }
+
+    private void getButtonsAndAnswer(String buttonsPath, List<Question> questions, int id, Long chatId) throws IOException {
+        List<Menu> buttons = objectMapper.readValue(new File(buttonsPath), new TypeReference<List<Menu>>() {});
+        if(id > questions.size()) {
+            return;
+        }
+        Question target = getTargetQuestion(questions, id);
+        buttons.forEach(button -> button.setCallbackData(target.getCallbackData() + button.getCallbackData()));
+        InlineKeyboardMarkup inlineKeyboardMarkup = createKeyboard(buttons);
+        sendMessage(target.getAnswer(), inlineKeyboardMarkup, chatId);
+    }
+
+    private void getButtonsAndQuestionMarkAnswer(String buttonsPath, List<Question> questions, int id, Long chatId) throws IOException {
+        List<Menu> buttons = objectMapper.readValue(new File(buttonsPath), new TypeReference<List<Menu>>() {});
+        if(id > questions.size()) {
+            return;
+        }
+        Question target = getTargetQuestion(questions, id);
+        buttons.forEach(button -> button.setCallbackData(target.getCallbackData() + button.getCallbackData()));
+        InlineKeyboardMarkup inlineKeyboardMarkup = createKeyboard(buttons);
+        sendMessage(QUESTION_MARK_ANSWER, inlineKeyboardMarkup, chatId);
+    }
+
+    private InlineKeyboardMarkup createKeyboard(List<Menu> buttons) {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
         buttons.forEach(element -> {
@@ -92,31 +131,36 @@ public class Bot extends TelegramLongPollingBot {
             rowList.add(row);
         });
         inlineKeyboardMarkup.setKeyboard(rowList);
-        sendMessage(text, inlineKeyboardMarkup, chatId);
+        return inlineKeyboardMarkup;
     }
 
-    private void getButtons(String buttonsPath, String questionsPath, int id, boolean isQuestion, Long chatId) throws IOException {
-        List<Menu> buttons = objectMapper.readValue(new File(buttonsPath), new TypeReference<List<Menu>>() {});
+    private Question getTargetQuestion(List<Question> questions, int id) {
+        return questions.stream()
+                .filter(question -> question.getId() == id).findFirst()
+                .orElseThrow(RuntimeException::new);
+    }
+
+    private void setMuscle(String questionsPath, int id) throws IOException {
         List<Question> questions = objectMapper.readValue(new File(questionsPath), new TypeReference<List<Question>>() {});
-        if(id > questions.size()) {
-            return;
+        Question target = getTargetQuestion(questions, id);
+        target.setMuscle(target.getMuscle() + 1);
+        objectMapper.writeValue(new File(questionsPath), questions);
+    }
+
+    private void setHeart(String questionsPath, int id) throws IOException {
+        List<Question> questions = objectMapper.readValue(new File(questionsPath), new TypeReference<List<Question>>() {});
+        Question target = getTargetQuestion(questions, id);
+        target.setHeart(target.getHeart() + 1);
+        objectMapper.writeValue(new File(questionsPath), questions);
+    }
+
+    private void getRandomQuestions(String language) throws IOException {
+        File[] files = new File("src/main/resources").listFiles((path, name) -> name.contains(language) && name.contains("questions"));
+        if (files != null) {
+            File file = files[(int)(Math.random() * files.length)];
+            randomQuestions.clear();
+            randomQuestions.addAll(objectMapper.readValue(file, new TypeReference<List<Question>>() {}));
         }
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
-        buttons.forEach(element -> {
-            List<InlineKeyboardButton> row = Collections.singletonList(new InlineKeyboardButton().setText(element.getName()).setCallbackData(questions.get(id - 1).getCallbackData() + element.getCallbackData()));
-            rowList.add(row);
-        });
-        inlineKeyboardMarkup.setKeyboard(rowList);
-        questions.forEach(element -> {
-            if(element.getId() == id) {
-                if(isQuestion) {
-                    sendMessage(element.getQuestion(), inlineKeyboardMarkup, chatId);
-                } else {
-                    sendMessage(element.getAnswer(), inlineKeyboardMarkup, chatId);
-                }
-            }
-        });
     }
 
     private void getTopicsForLanguage(String language, Long chatId) throws IOException {
@@ -128,7 +172,8 @@ public class Bot extends TelegramLongPollingBot {
     private void getQuestionsForTopic(String language, String topic, Long chatId) throws IOException {
         switch (topic) {
             case "random":
-                //
+                getRandomQuestions(language);
+                getButtonsAndQuestion(RANDOM_QUESTION_BUTTONS_PATH, randomQuestions, (int)(Math.random() * randomQuestions.size() + 1), chatId);
                 break;
             case "favorite":
                 //
@@ -137,9 +182,9 @@ public class Bot extends TelegramLongPollingBot {
                 //
                 break;
             default:
-                String buttonsPath = String.format(QUESTION_BUTTONS_PATH, language);
                 String questionsPath = String.format(QUESTIONS_PATH, language, topic);
-                getButtons(buttonsPath, questionsPath, 1,true, chatId);
+                List<Question> questions = objectMapper.readValue(new File(questionsPath), new TypeReference<List<Question>>() {});
+                getButtonsAndQuestion(QUESTION_BUTTONS_PATH, questions, 1, chatId);
                 break;
         }
         log.info("Got question for {} topic of {} language", topic, language);
@@ -147,26 +192,37 @@ public class Bot extends TelegramLongPollingBot {
 
     private void getQuestions(String language, String topic, String messageId, String button, Long chatId) throws IOException {
         int id = Integer.parseInt(messageId);
-        String buttonsPath = String.format(QUESTION_BUTTONS_PATH, language);
+        String questionsPath = String.format(QUESTIONS_PATH, language, topic);
+        List<Question> questions = objectMapper.readValue(new File(questionsPath), new TypeReference<List<Question>>() {});
         switch (button) {
             case "heart":
-                //
+                setHeart(questionsPath, id);
                 break;
             case "muscle":
-                //
+                setMuscle(questionsPath, id);
                 break;
             case "answer":
-                String answerPath = String.format(QUESTIONS_PATH, language, topic);
-                getButtons(buttonsPath, answerPath, id, false, chatId);
+                getButtonsAndAnswer(ANSWER_BUTTONS_PATH, questions, id, chatId);
                 log.info("Got answer #{} for {} topic of {} language", id, topic, language);
                 break;
             case "next":
-                String questionsPath = String.format(QUESTIONS_PATH, language, topic);
-                getButtons(buttonsPath, questionsPath, id + 1, true, chatId);
+                getButtonsAndQuestion(QUESTION_BUTTONS_PATH, questions, id + 1, chatId);
                 log.info("Got question #{} for {} topic of {} language", id, topic, language);
                 break;
             case "questionmark":
-                //
+                getButtonsAndQuestionMarkAnswer(QUESTION_BUTTONS_PATH, questions, id, chatId);
+                break;
+            case "randomanswer":
+                getButtonsAndAnswer(RANDOM_ANSWER_BUTTONS_PATH, randomQuestions, id, chatId);
+                log.info("Got answer #{} for random topic of {} language", id, language);
+                break;
+            case "randomnext":
+                getRandomQuestions(language);
+                getButtonsAndQuestion(RANDOM_QUESTION_BUTTONS_PATH, randomQuestions, (int)(Math.random() * randomQuestions.size() + 1), chatId);
+                log.info("Got question #{} for random topic of {} language", id, language);
+                break;
+            case "randomquestionmark":
+                getButtonsAndQuestionMarkAnswer(RANDOM_QUESTION_BUTTONS_PATH, randomQuestions, id, chatId);
                 break;
         }
     }

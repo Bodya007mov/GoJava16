@@ -1,14 +1,18 @@
 [
   {
-    "id": 1,
-    "question": "Какая разница между JDK, JVM, JRE?",
-    "answer": "structure-answer-1",
-    "callbackData": "question-java-structure-1"
+    "id":1,
+    "heart":0,
+    "muscle":0,
+    "question":"Какая разница между JDK, JVM, JRE?",
+    "answer":"structure-answer-1",
+    "callbackData":"question-java-structure-1"
   },
   {
-    "id": 2,
-    "question": "Что такое Heap и Stack память в Java?",
-    "answer": "structure-answer-2",
-    "callbackData": "question-java-structure-2"
+    "id":2,
+    "heart":0,
+    "muscle":0,
+    "question":"Что такое Heap и Stack память в Java?",
+    "answer":"structure-answer-2",
+    "callbackData":"question-java-structure-2"
   }
 ]
